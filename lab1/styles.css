@@ -1,0 +1,200 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Georgia", serif;
+  background: #0b2f4a; /* dark blue */
+  color: #ffffff;
+}
+
+/* ========== Header Title Bar ========== */
+.site-title {
+  background: #000000;
+  color: #ffffff;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 14px 10px;
+}
+
+/* ========== Nav Bar ========== */
+.navbar {
+  background: #0330f6b7; /* tan/gold */
+  padding: 14px 0;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  background: #2f2f2f;
+  color: #ffffff;
+  padding: 8px 14px;
+  border: 2px solid #1b1b1b;
+  border-radius: 3px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.35);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+/* hover requirement */
+.navbar a:hover {
+  background: #444444;
+  transform: translateY(-1px);
+}
+
+/* current page stands out requirement */
+.navbar a.active {
+  background: #ffffff;
+  color: #111111;
+  border-color: #ffffff;
+}
+
+/* ========== Page Layout ========== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 18px 10px;
+}
+
+/* ========== Home: Team Flexbox Row ========== */
+.team-row {
+  display: flex;              /* FLEXBOX requirement */
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.member {
+  text-align: center;
+  width: 240px;
+}
+
+.member img {
+  width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 30px;
+  border: 2px solid rgba(0, 0, 0, 0.908);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.934);
+}
+
+.member .name {
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+/* Home text/quote */
+.home-text {
+  text-align: center;
+  margin: 38px auto 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.quote {
+  text-align: center;
+  margin: 26px auto 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.quote .author {
+  font-style: normal;
+  margin-top: 6px;
+}
+
+/* ========== About Page Content ========== */
+.center-block {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 10px;
+}
+
+.table-wrap {
+  background: rgba(255,255,255,0.08);
+  padding: 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+table {
+  border-collapse: collapse;
+  width: 320px;
+  font-family: "Georgia", serif;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+th {
+  background: rgba(255,255,255,0.9);
+  color: #111;
+  font-weight: 700;
+}
+
+/* hobby list section */
+.section-title {
+  margin-top: 40px;
+  font-weight: 800;
+  text-align: left;
+}
+
+ul.hobbies {
+  margin-top: 12px;
+  line-height: 1.35;
+}
+
+ul.hobbies li {
+  margin-bottom: 10px;
+}
+
+/* ========== Contact Page ========== */
+.form-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 40px;
+}
+
+.form-frame {
+  width: min(820px, 95vw);
+  height: 520px;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ========== Footer (all pages) ========== */
+footer {
+  margin-top: 40px;
+  background: #000000;
+  text-align: center;
+  padding: 18px 10px 22px;
+}
+
+footer img {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+footer .footer-text {
+  font-size: 11px;         /* smaller font requirement */
+  color: #9aa0a6;           /* different font color requirement */
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  opacity: 0.95;
+}
