@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operating Systems 101 — Memory</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">OS</span>
+      <div>
+        <h1>Memory</h1>
+        <p class="subtitle">RAM, virtual memory, and protection</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link" href="processes.html">Processes</a>
+      <a class="nav-link active" href="memory.html">Memory</a>
+      <a class="nav-link" href="files.html">File Systems</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Why Memory Management Matters</h2>
+      <p>
+        RAM is fast but limited. The OS must decide how to share it across processes
+        while keeping programs isolated so one app can’t read or overwrite another app’s data.
+      </p>
+    </section>
+
+    <section class="card split">
+      <div>
+        <h3>Virtual Memory</h3>
+        <p>
+          Virtual memory gives each process the illusion of a large, private memory space.
+          The CPU uses page tables (managed by the OS) to translate virtual addresses into
+          physical RAM locations.
+        </p>
+        <ul class="bullets">
+          <li><strong>Isolation:</strong> processes can’t directly access each other.</li>
+          <li><strong>Convenience:</strong> programs can assume a consistent layout.</li>
+          <li><strong>Efficiency:</strong> unused memory doesn’t need to sit in RAM.</li>
+        </ul>
+      </div>
+
+      <figure>
+        <svg class="svg" viewBox="0 0 520 260" role="img" aria-label="Virtual to physical memory mapping diagram">
+          <text x="20" y="30">Virtual</text>
+          <rect x="20" y="50" width="140" height="180" rx="12"></rect>
+          <text x="90" y="145" text-anchor="middle">Process</text>
+
+          <text x="210" y="30">Page table</text>
+          <rect x="200" y="50" width="120" height="180" rx="12"></rect>
+          <text x="260" y="145" text-anchor="middle">maps</text>
+
+          <text x="370" y="30">Physical RAM</text>
+          <rect x="350" y="50" width="150" height="180" rx="12"></rect>
+          <text x="425" y="145" text-anchor="middle">RAM</text>
+
+          <path d="M160 140 H200" />
+          <path d="M320 140 H350" />
+        </svg>
+        <figcaption>Address translation helps enforce safety and sharing.</figcaption>
+      </figure>
+    </section>
+
+    <section class="card">
+      <h3>When RAM fills up</h3>
+      <p>
+        If the system needs more memory, it can move rarely used pages to disk
+        (often called swapping). This can keep programs running, but it’s slower
+        than staying fully in RAM.
+      </p>
+    </section>
+
+    <footer class="site-footer card">
+      <h3>Sources</h3>
+      <ul class="sources">
+        <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">OSTEP — Virtual Memory</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Virtual_memory" target="_blank" rel="noopener">Virtual memory</a></li>
+      </ul>
+      <p class="tiny">© Rigoberto Rayon — HW1</p>
+    </footer>
+  </main>
+</body>
+</html>

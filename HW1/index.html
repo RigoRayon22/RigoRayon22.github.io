@@ -1,1 +1,126 @@
+ 
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operating Systems 101 — Overview</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">OS</span>
+      <div>
+        <h1>Operating Systems 101</h1>
+        <p class="subtitle">A four-page mini site for CS topics</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link active" href="index.html">Overview</a>
+      <a class="nav-link" href="processes.html">Processes</a>
+      <a class="nav-link" href="memory.html">Memory</a>
+      <a class="nav-link" href="files.html">File Systems</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card hero">
+      <div class="hero-text">
+        <h2>What is an Operating System?</h2>
+        <p>
+          An operating system (OS) is the software layer that helps your programs
+          use hardware safely and efficiently. It manages key resources like the
+          CPU, memory, and storage, and provides services such as files, networking,
+          and security permissions.
+        </p>
+        <ul class="checklist">
+          <li><strong>Virtualization:</strong> makes limited hardware feel abundant (CPU, memory).</li>
+          <li><strong>Abstraction:</strong> hides low-level details behind friendly interfaces.</li>
+          <li><strong>Protection:</strong> stops programs from harming each other or the system.</li>
+        </ul>
+      </div>
+
+      <figure class="hero-figure">
+        <svg class="svg" viewBox="0 0 520 260" role="img" aria-label="Diagram of apps above the OS above hardware">
+          <rect x="20" y="20" width="150" height="70" rx="12"></rect>
+          <text x="95" y="60" text-anchor="middle">App A</text>
+
+          <rect x="190" y="20" width="150" height="70" rx="12"></rect>
+          <text x="265" y="60" text-anchor="middle">App B</text>
+
+          <rect x="360" y="20" width="140" height="70" rx="12"></rect>
+          <text x="430" y="60" text-anchor="middle">App C</text>
+
+          <rect x="70" y="120" width="380" height="70" rx="14"></rect>
+          <text x="260" y="160" text-anchor="middle">Operating System</text>
+
+          <rect x="70" y="210" width="380" height="30" rx="10"></rect>
+          <text x="260" y="232" text-anchor="middle">Hardware (CPU • RAM • Disk)</text>
+
+          <path d="M95 90 V120" />
+          <path d="M265 90 V120" />
+          <path d="M430 90 V120" />
+        </svg>
+        <figcaption>Apps rely on the OS to safely access hardware resources.</figcaption>
+      </figure>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3>CPU & Processes</h3>
+        <p>
+          The OS shares the CPU by running many programs “as if” they are at the
+          same time. It uses scheduling and context switching to move between tasks.
+        </p>
+        <a class="button" href="processes.html">Learn Processes</a>
+      </article>
+
+      <article class="card">
+        <h3>Memory</h3>
+        <p>
+          Memory management decides what data stays in fast RAM, what moves to disk,
+          and how each program gets its own protected address space.
+        </p>
+        <a class="button" href="memory.html">Learn Memory</a>
+      </article>
+
+      <article class="card">
+        <h3>File Systems</h3>
+        <p>
+          A file system organizes data on storage devices into files and folders,
+          and helps keep data correct even when things crash.
+        </p>
+        <a class="button" href="files.html">Learn File Systems</a>
+      </article>
+    </section>
+
+    <section class="card">
+      <h3>Quick Glossary</h3>
+      <details>
+        <summary>Click to expand</summary>
+        <ul class="glossary">
+          <li><strong>Kernel:</strong> the privileged core of the OS.</li>
+          <li><strong>System call:</strong> a controlled request for OS services.</li>
+          <li><strong>Interrupt:</strong> a signal that makes the CPU stop and run OS code.</li>
+          <li><strong>Virtual memory:</strong> the illusion of large, private memory per program.</li>
+        </ul>
+      </details>
+    </section>
+
+    <footer class="site-footer card">
+      <h3>Sources</h3>
+      <p>These pages are paraphrased summaries of common OS concepts. Helpful references:</p>
+      <ul class="sources">
+        <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">OSTEP (free OS textbook)</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Operating_system" target="_blank" rel="noopener">Operating system (Wikipedia)</a></li>
+        <li><a href="https://developer.android.com/guide/components/fundamentals" target="_blank" rel="noopener">Android app fundamentals</a></li>
+      </ul>
+      <p class="tiny">© Rigoberto Rayon — HW1</p>
+    </footer>
+  </main>
+</body>
+</html>
 
