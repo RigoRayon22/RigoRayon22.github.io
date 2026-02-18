@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Playlist Mood Mixer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Playlist Mood Mixer</h1>
+    <p id="subtitle">Build a mini setlist and match the vibe.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Mix Your Vibe</h2>
+
+      <form id="sessionForm" class="form">
+        <label>
+          DJ Name
+          <input id="nameInput" type="text" placeholder="e.g., DJ Nova" required />
+        </label>
+
+        <label>
+          Genre
+          <select id="genreSelect">
+            <option value="hiphop">Hip-Hop</option>
+            <option value="pop">Pop</option>
+            <option value="edm">EDM</option>
+            <option value="rock">Rock</option>
+            <option value="lofi">Lo-fi</option>
+          </select>
+        </label>
+
+        <label>
+          Mood
+          <select id="themeSelect">
+            <option value="chill">Chill</option>
+            <option value="hype">Hype</option>
+            <option value="lateNight">Late Night</option>
+            <option value="sunny">Sunny</option>
+          </select>
+        </label>
+
+        <label>
+          Energy (1–10)
+          <input id="energyInput" type="range" min="1" max="10" value="5" />
+        </label>
+
+        <label>
+          Set length (minutes)
+          <input id="minutesInput" type="number" min="10" max="180" value="30" required />
+        </label>
+
+        <div class="row">
+          <button type="submit" class="btn">Generate Setlist</button>
+          <button type="button" id="resetBtn" class="btn btn-ghost">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Add Songs</h2>
+      <p class="muted">Add songs you want in the mix. Press Enter to add fast.</p>
+
+      <div class="taskInputRow">
+        <input id="taskInput" type="text" placeholder="Song title - Artist (optional)" />
+        <button id="addTaskBtn" class="btn" type="button">Add Song</button>
+      </div>
+
+      <ul id="taskList" class="taskList"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Your Setlist</h2>
+
+      <div class="hero">
+        <img id="themeImage" alt="Mood visual" />
+        <div class="heroText">
+          <h3 id="planTitle">No setlist yet</h3>
+          <p id="planDetails" class="muted">Choose a mood and click “Generate Setlist”.</p>
+        </div>
+      </div>
+
+      <div id="schedule" class="schedule"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Try changing Mood + Energy — the colors and cover image update instantly.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
