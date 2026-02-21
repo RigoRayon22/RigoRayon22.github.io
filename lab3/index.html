@@ -1,30 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 3 </title>
-    <script src = "script.js" defer>
-
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pokémon Quiz</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <h1>Quiz </h1>
-    1. What CSS property changes 
-    
-<br>
+  <div class="container">
+    <h1>Pokémon Quiz</h1>
+    <p class="small">
+      5 questions • 20 points each • Plain JavaScript
+    </p>
 
-    <!-- <label><input type = "radio" name = "q1" value = "font-color"> font-color </label>
-    <label><input type = "radio" name ="q1" value = "text-color"> text-color</label>
-    <label><input type = "radio" name = "q1" value ="color">color </label> -->
+    <div class="stats">
+      <p><strong>Times Taken:</strong> <span id="timesTaken">0</span></p>
+      <p><strong>Last Score:</strong> <span id="lastScore">—</span></p>
+    </div>
 
+    <form id="quizForm">
+      <!-- Q1 Radio (randomized order) -->
+      <div class="question">
+        <h2>Q1) Which Pokémon is NOT a Kanto starter?</h2>
+        <div id="q1Choices"></div>
+        <div class="feedback" id="q1Feedback" hidden></div>
+      </div>
 
-<div id = "q1ChoicesDiv"></div>
-<br>
-<button> Submit Quiz</button>
+      <!-- Q2 Checkbox -->
+      <div class="question">
+        <h2>Q2) Check ALL Gen 1 Eeveelutions:</h2>
 
+        <div class="choice">
+          <input type="checkbox" id="q2a" name="q2" value="Vaporeon">
+          <label for="q2a">Vaporeon</label>
+        </div>
 
+        <div class="choice">
+          <input type="checkbox" id="q2b" name="q2" value="Jolteon">
+          <label for="q2b">Jolteon</label>
+        </div>
 
+        <div class="choice">
+          <input type="checkbox" id="q2c" name="q2" value="Flareon">
+          <label for="q2c">Flareon</label>
+        </div>
+
+        <div class="choice">
+          <input type="checkbox" id="q2d" name="q2" value="Pikachu">
+          <label for="q2d">Pikachu</label>
+        </div>
+
+        <div class="feedback" id="q2Feedback" hidden></div>
+      </div>
+
+      <!-- Q3 Select -->
+      <div class="question">
+        <h2>Q3) What type is super effective against Water?</h2>
+        <label for="q3Select">Pick one:</label>
+        <select id="q3Select" name="q3">
+          <option value="" selected disabled>-- choose --</option>
+          <option value="Fire">Fire</option>
+          <option value="Electric">Electric</option>
+          <option value="Rock">Rock</option>
+          <option value="Normal">Normal</option>
+        </select>
+
+        <div class="feedback" id="q3Feedback" hidden></div>
+      </div>
+
+      <!-- Q4 Text -->
+      <div class="question">
+        <h2>Q4) What is Pikachu’s Pokédex number?</h2>
+        <label for="q4Text">Type a number:</label>
+        <input type="text" id="q4Text" name="q4" placeholder="like 25" />
+
+        <div class="feedback" id="q4Feedback" hidden></div>
+      </div>
+
+      <!-- Q5 Range -->
+      <div class="question">
+        <h2>Q5) Move the slider to EXACTLY 12</h2>
+        <label for="q5Range">Training level:</label>
+        <input type="range" id="q5Range" name="q5" min="5" max="20" value="10" />
+        <span id="q5Val">10</span>
+
+        <div class="feedback" id="q5Feedback" hidden></div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Submit</button>
+        <button type="button" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="results" id="results" hidden>
+        <p id="scoreLine" class="scoreLine">Score: 0 / 100</p>
+        <p id="congrats" class="congrats" hidden>
+          🎉 Congrats! You scored above 80!
+        </p>
+      </div>
+    </form>
+
+    <p class="tiny">
+      (Reload the page — Times Taken stays saved because of localStorage.)
+    </p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
