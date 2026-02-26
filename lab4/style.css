@@ -1,0 +1,7 @@
+.card { border-radius: 14px; }
+#userMsg.ok { color: green; }
+#userMsg.bad { color: red; }
+#matchMsg.ok { color: green; }
+#matchMsg.bad { color: red; }
+#submitMsg.ok { color: green; }
+#submitMsg.bad { color: red; }
