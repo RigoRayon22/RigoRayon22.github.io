@@ -6,6 +6,8 @@ const zipMsg = document.querySelector("#zipMsg");
 
 const state = document.querySelector("#state");
 const county = document.querySelector("#county");
+const stateMsg = document.querySelector("#stateMsg");
+const countyMsg = document.querySelector("#countyMsg");
 
 const username = document.querySelector("#username");
 const userMsg = document.querySelector("#userMsg");
@@ -19,43 +21,79 @@ const matchMsg = document.querySelector("#matchMsg");
 const form = document.querySelector("#signupForm");
 const submitMsg = document.querySelector("#submitMsg");
 
+// Helper to safely fetch JSON (prevents Chrome from “breaking” your script on errors)
+async function safeJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json();
+}
+
 /* 1 & 2) ZIP lookup + "Zip not found" */
 zip.addEventListener("input", async () => {
   const z = zip.value.trim();
+
   city.textContent = lat.textContent = lon.textContent = "";
   zipMsg.textContent = "";
 
   if (!/^\d{5}$/.test(z)) return;
 
-  const r = await fetch(`https://csumb.space/api/cityInfoAPI.php?zip=${z}`);
-  const d = await r.json();
+  try {
+    const d = await safeJson(`https://csumb.space/api/cityInfoAPI.php?zip=${encodeURIComponent(z)}`);
 
-  if (!d.city) {
-    zipMsg.textContent = "Zip code not found";
-    return;
+    if (!d.city) {
+      zipMsg.textContent = "Zip code not found";
+      return;
+    }
+
+    city.textContent = d.city;
+    lat.textContent = d.latitude;
+    lon.textContent = d.longitude;
+  } catch (e) {
+    zipMsg.textContent = "Zip API error (Chrome blocked or API down)";
   }
-  city.textContent = d.city;
-  lat.textContent = d.latitude;
-  lon.textContent = d.longitude;
 });
 
-/* 6) Load states */
+/* 6) Load states from API */
 (async () => {
-  const r = await fetch("https://csumb.space/api/allStatesAPI.php");
-  const states = await r.json();
-  state.innerHTML = `<option value="">Select State</option>` +
-    states.map(s => `<option value="${s.usps}">${s.state}</option>`).join("");
+  state.innerHTML = `<option value="">Loading...</option>`;
+  county.innerHTML = `<option value="">Select state first</option>`;
+  stateMsg.textContent = "";
+  countyMsg.textContent = "";
+
+  try {
+    const states = await safeJson("https://csumb.space/api/allStatesAPI.php");
+
+    state.innerHTML =
+      `<option value="">Select State</option>` +
+      states.map(s => `<option value="${s.usps}">${s.state}</option>`).join("");
+  } catch (e) {
+    stateMsg.textContent = "States API failed in Chrome. Run via Live Server.";
+    state.innerHTML = `<option value="">(error)</option>`;
+  }
 })();
 
 /* 3) Load counties when state selected */
 state.addEventListener("change", async () => {
+  countyMsg.textContent = "";
   county.innerHTML = `<option value="">Loading...</option>`;
-  if (!state.value) return;
 
-  const r = await fetch(`https://csumb.space/api/countyListAPI.php?state=${state.value}`);
-  const counties = await r.json();
-  county.innerHTML = `<option value="">Select County</option>` +
-    counties.map(c => `<option>${c.county}</option>`).join("");
+  if (!state.value) {
+    county.innerHTML = `<option value="">Select state first</option>`;
+    return;
+  }
+
+  try {
+    const counties = await safeJson(
+      `https://csumb.space/api/countyListAPI.php?state=${encodeURIComponent(state.value)}`
+    );
+
+    county.innerHTML =
+      `<option value="">Select County</option>` +
+      counties.map(c => `<option>${c.county}</option>`).join("");
+  } catch (e) {
+    countyMsg.textContent = "Counties API error";
+    county.innerHTML = `<option value="">(error)</option>`;
+  }
 });
 
 /* 4) Username availability */
@@ -72,25 +110,36 @@ username.addEventListener("input", async () => {
     return;
   }
 
-  const r = await fetch(`https://csumb.space/api/usernamesAPI.php?username=${u}`);
-  const d = await r.json();
+  try {
+    const d = await safeJson(
+      `https://csumb.space/api/usernamesAPI.php?username=${encodeURIComponent(u)}`
+    );
 
-  userMsg.textContent = d.available ? "Username available" : "Username NOT available";
-  userMsg.classList.add(d.available ? "ok" : "bad");
+    userMsg.textContent = d.available ? "Username available" : "Username NOT available";
+    userMsg.classList.add(d.available ? "ok" : "bad");
+  } catch (e) {
+    userMsg.textContent = "Username API error";
+    userMsg.classList.add("bad");
+  }
 });
 
-/* 5) Suggested password on click/focus */
+/* 5) Suggested password when clicking/focusing password box */
 password.addEventListener("focus", async () => {
-  const r = await fetch("https://csumb.space/api/suggestedPassword.php?length=8");
-  const d = await r.json();
-  suggest.textContent = "Suggested Password: " + d.password;
+  suggest.textContent = "Loading suggested password...";
+  try {
+    const d = await safeJson("https://csumb.space/api/suggestedPassword.php?length=8");
+    suggest.textContent = "Suggested Password: " + d.password;
+  } catch (e) {
+    suggest.textContent = "Password API error";
+  }
 });
 
-/* Password match message (nice UX) */
+/* Password match feedback */
 retype.addEventListener("input", () => {
   matchMsg.textContent = "";
   matchMsg.className = "small fw-bold";
   if (!retype.value) return;
+
   const ok = password.value === retype.value;
   matchMsg.textContent = ok ? "Passwords match" : "Passwords do not match";
   matchMsg.classList.add(ok ? "ok" : "bad");
