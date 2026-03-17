@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operating Systems 101 — Processes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">OS</span>
+      <div>
+        <h1>Processes</h1>
+        <p class="subtitle">Programs in motion: CPU sharing and scheduling</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link active" href="processes.html">Processes</a>
+      <a class="nav-link" href="memory.html">Memory</a>
+      <a class="nav-link" href="files.html">File Systems</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>What is a Process?</h2>
+      <p>
+        A process is a running instance of a program. Besides the code, it includes
+        its current CPU state (registers), memory mappings, open files, and permissions.
+      </p>
+      <p>
+        The OS keeps track of processes using a data structure often called a
+        <strong>process control block</strong> (PCB).
+      </p>
+    </section>
+
+    <section class="card split">
+      <div>
+        <h3>Scheduling</h3>
+        <p>
+          Scheduling is the OS decision-making about <em>which process runs next</em>.
+          Goals often include keeping the CPU busy, making interactive apps feel snappy,
+          and being fair across tasks.
+        </p>
+        <ul class="bullets">
+          <li><strong>Time slice:</strong> a small time window each process can run.</li>
+          <li><strong>Preemption:</strong> stopping a process when its slice ends.</li>
+          <li><strong>Context switch:</strong> saving one process state and loading another.</li>
+        </ul>
+      </div>
+
+      <figure>
+        <svg class="svg" viewBox="0 0 520 260" role="img" aria-label="Timeline showing process A then B then C">
+          <text x="20" y="30">CPU timeline</text>
+          <rect x="20" y="60" width="150" height="50" rx="10"></rect>
+          <text x="95" y="92" text-anchor="middle">A</text>
+
+          <rect x="180" y="60" width="150" height="50" rx="10"></rect>
+          <text x="255" y="92" text-anchor="middle">B</text>
+
+          <rect x="340" y="60" width="150" height="50" rx="10"></rect>
+          <text x="415" y="92" text-anchor="middle">C</text>
+
+          <path d="M20 140 H490" />
+          <text x="20" y="170">timer interrupts force switches</text>
+          <path d="M170 120 V150" />
+          <path d="M330 120 V150" />
+        </svg>
+        <figcaption>Time-slicing makes multiple programs feel concurrent.</figcaption>
+      </figure>
+    </section>
+
+    <section class="card">
+      <h3>System Calls (How programs ask for OS help)</h3>
+      <p>
+        Programs use system calls to request protected services like reading a file
+        or creating a new process. Under the hood, a system call triggers a controlled
+        transition into kernel mode, the OS does the work, and then returns to the app.
+      </p>
+    </section>
+
+    <footer class="site-footer card">
+      <h3>Sources</h3>
+      <ul class="sources">
+        <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">OSTEP — CPU Virtualization</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Process_(computing)" target="_blank" rel="noopener">Process (computing)</a></li>
+      </ul>
+      <p class="tiny">© Rigoberto Rayon — HW1</p>
+    </footer>
+  </main>
+</body>
+</html>

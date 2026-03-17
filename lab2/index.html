@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guess a Number Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Guess the Number</h1>
+  <p>Guess a number between 0 and 99. You get 7 tries.</p>
+
+  <div class="box">
+    <h2>Score</h2>
+    <p>Wins: <span id="wins">0</span> | Losses: <span id="losses">0</span></p>
+    <p>Attempt: <span id="attemptCount">0</span>/7</p>
+  </div>
+
+  <div class="box">
+    <h2>Play</h2>
+
+    <form id="guessForm">
+      <label>Player Name:</label><br>
+      <input id="playerName" type="text" placeholder="Your name" required><br><br>
+
+      <label>Your Guess (0-99):</label><br>
+      <input id="guessInput" type="number" placeholder="Enter number" required><br><br>
+
+      <button id="guessBtn" type="submit">Guess</button>
+      <button id="resetBtn" type="button" class="hidden">Reset</button>
+    </form>
+
+    <p id="errorMsg" class="error hidden"></p>
+
+    <p id="hintMsg">Make your first guess!</p>
+    <p id="winMsg" class="win hidden"></p>
+    <p id="loseMsg" class="lose hidden"></p>
+  </div>
+
+  <div class="box">
+    <h2>Attempts (this match)</h2>
+    <ul id="attemptList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

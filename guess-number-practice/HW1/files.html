@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operating Systems 101 — File Systems</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">OS</span>
+      <div>
+        <h1>File Systems</h1>
+        <p class="subtitle">Storing and organizing data reliably</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link" href="processes.html">Processes</a>
+      <a class="nav-link" href="memory.html">Memory</a>
+      <a class="nav-link active" href="files.html">File Systems</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>What a File System Does</h2>
+      <p>
+        A file system organizes data on storage devices (SSD/HDD) into files and folders.
+        It also manages metadata like names, permissions, sizes, and modification times.
+      </p>
+    </section>
+
+    <section class="card split">
+      <div>
+        <h3>Key Ideas</h3>
+        <ul class="bullets">
+          <li><strong>Directories:</strong> map names to files.</li>
+          <li><strong>Blocks:</strong> fixed-size chunks used to store data on disk.</li>
+          <li><strong>Metadata:</strong> info about a file (owner, size, timestamps).</li>
+          <li><strong>Reliability:</strong> strategies to recover after crashes.</li>
+        </ul>
+        <p>
+          Many systems use techniques like journaling or copy-on-write to reduce corruption risks.
+        </p>
+      </div>
+
+      <figure>
+        <svg class="svg" viewBox="0 0 520 260" role="img" aria-label="Folder and file block diagram">
+          <rect x="30" y="60" width="180" height="140" rx="14"></rect>
+          <text x="120" y="90" text-anchor="middle">Folder</text>
+
+          <rect x="60" y="110" width="120" height="30" rx="8"></rect>
+          <text x="120" y="130" text-anchor="middle">notes.txt</text>
+
+          <rect x="60" y="150" width="120" height="30" rx="8"></rect>
+          <text x="120" y="170" text-anchor="middle">photo.png</text>
+
+          <rect x="270" y="80" width="220" height="40" rx="10"></rect>
+          <text x="380" y="106" text-anchor="middle">Disk blocks</text>
+
+          <rect x="270" y="130" width="60" height="60" rx="10"></rect>
+          <rect x="340" y="130" width="60" height="60" rx="10"></rect>
+          <rect x="410" y="130" width="60" height="60" rx="10"></rect>
+
+          <path d="M180 125 H270" />
+          <path d="M180 165 H270" />
+        </svg>
+        <figcaption>Files are mapped onto blocks on storage devices.</figcaption>
+      </figure>
+    </section>
+
+    <section class="card">
+      <h3>Why “crash consistency” matters</h3>
+      <p>
+        Power loss or sudden shutdown can interrupt writes. A well-designed file system
+        tries to ensure you don’t end up with half-updated metadata or missing links in directories.
+      </p>
+    </section>
+
+    <footer class="site-footer card">
+      <h3>Sources</h3>
+      <ul class="sources">
+        <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">OSTEP — File Systems</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/File_system" target="_blank" rel="noopener">File system</a></li>
+      </ul>
+      <p class="tiny">© Rigoberto Rayon — HW1</p>
+    </footer>
+  </main>
+</body>
+</html>
