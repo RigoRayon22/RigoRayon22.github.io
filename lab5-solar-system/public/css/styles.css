@@ -1,4 +1,57 @@
 body {
-    text-align: center;
-    background-color: springgreen;
+    background-color: #f4f8fb;
+    font-family: Arial, sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+h2, h3, h4 {
+    color: #0d3b66;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.home-section {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-image {
+    max-height: 350px;
+    object-fit: cover;
+    border: 4px solid #0d6efd;
+}
+
+.planet-image {
+    max-height: 350px;
+    object-fit: contain;
+}
+
+.nasa-image {
+    max-height: 450px;
+    object-fit: contain;
+}
+
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+.list-group-item {
+    font-size: 1.05rem;
+}
+
+footer {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
 }

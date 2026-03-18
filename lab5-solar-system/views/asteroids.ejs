@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <%- include('partials/navbar.ejs') %>
+
+    <main class="container my-5">
+        <h2 class="mb-4">Near-Earth Asteroids</h2>
+        <p><strong>Date:</strong> <%= date %></p>
+
+        <div class="row g-4">
+            <% asteroids.forEach(asteroid => { %>
+                <div class="col-md-6">
+                    <div class="card p-4 shadow h-100">
+                        <h4><%= asteroid.name %></h4>
+                        <p><strong>Absolute Magnitude:</strong> <%= asteroid.absolute_magnitude_h %></p>
+                        <p><strong>Potentially Hazardous:</strong> <%= asteroid.is_potentially_hazardous_asteroid ? "Yes" : "No" %></p>
+                        <p>
+                            <strong>More Information:</strong>
+                            <a href="<%= asteroid.nasa_jpl_url %>" target="_blank">NASA JPL Link</a>
+                        </p>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        Created by Rigoberto Rayon
+    </footer>
+</body>
+</html>

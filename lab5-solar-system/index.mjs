@@ -5,42 +5,91 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-//routes
-//root route
-app.get('/', async(req, res) => {
-    
-    let randomImageResponse = await fetch('https://pixabay.com/api/?key=20426927-497d14db9c234faf7d0df8317&per_page=50&orientation=horizontal&q=solar%20system')
-    let randomImageData = await randomImageResponse.json();
-    //let randomImageURL = randomImageData.hits[0].previewURL;
+const PIXABAY_KEY = "20426927-497d14db9c234faf7d0df8317";
+const NASA_KEY = "DEMO_KEY"; // replace with your NASA key if needed
 
-    let index = Math.floor(Math.random() * randomImageData.hits.length)
-    let randomImageURL = randomImageData.hits[index].previewURL
-    //don't put things after render
-    res.render('home.ejs', { image:randomImageURL });
+app.get('/', async (req, res) => {
+    try {
+        const response = await fetch(`https://pixabay.com/api/?key=${PIXABAY_KEY}&per_page=50&orientation=horizontal&q=solar%20system`);
+        const data = await response.json();
+
+        let randomImageURL = "";
+        if (data.hits && data.hits.length > 0) {
+            const index = Math.floor(Math.random() * data.hits.length);
+            randomImageURL = data.hits[index].webformatURL || data.hits[index].previewURL;
+        }
+
+        res.render('home.ejs', { image: randomImageURL });
+    } catch (error) {
+        console.log(error);
+        res.render('home.ejs', { image: "" });
+    }
 });
 
 app.get('/planetInfo', (req, res) => {
-    let planet = req.query.planet;
-    let planetInfo = planets[`get${ planet }`]();
-    console.log(planetInfo);
-    res.render('planetInfo.ejs', { planetInfo, planet });
+    try {
+        const planet = req.query.planet;
+        const functionName = `get${planet}`;
+        const planetInfo = planets[functionName]();
+
+        res.render('planetInfo.ejs', { planet, planetInfo });
+    } catch (error) {
+        console.log(error);
+        res.send("Planet not found.");
+    }
 });
 
-app.get('/nasapod', async(req, res) => {
-    
-    let nasaImageResponse = await fetch('https://api.nasa.gov/planetary/apod?api_key=9mUzIkhlZCZaOoMfspg7jMmwZCZ4LiRHtkgkambD&date=2026-03-11')
-    let nasaImageData = await nasaImageResponse.json();
-    let nasaImageURL = nasaImageData.url;
+app.get('/nasapod', async (req, res) => {
+    try {
+        const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`);
+        const data = await response.json();
 
-    //don't put things after render
-    res.render('nasapod.ejs', { image:nasaImageURL });
+        res.render('nasapod.ejs', {
+            title: data.title,
+            image: data.url,
+            explanation: data.explanation,
+            date: data.date
+        });
+    } catch (error) {
+        console.log(error);
+        res.send("Could not load NASA POD.");
+    }
 });
 
-/* app.get('/mercury', (req, res) => {
-    let mercuryInfo = planets.getMercury();
-    console.log(mercuryInfo);
-    res.render('mercury.ejs', {mercuryInfo});
-}); */
+app.get('/asteroids', async (req, res) => {
+    try {
+        const response = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?api_key=${NASA_KEY}`);
+        const data = await response.json();
+
+        const dateKeys = Object.keys(data.near_earth_objects);
+        const today = dateKeys[0];
+        const asteroids = data.near_earth_objects[today];
+
+        res.render('asteroids.ejs', { asteroids, date: today });
+    } catch (error) {
+        console.log(error);
+        res.send("Could not load asteroids.");
+    }
+});
+
+app.get('/comets', (req, res) => {
+    const comets = [
+        {
+            name: "Halley's Comet",
+            description: "A famous short-period comet that becomes visible from Earth about every 75 to 76 years."
+        },
+        {
+            name: "Hale-Bopp",
+            description: "One of the brightest and most widely observed comets of the twentieth century."
+        },
+        {
+            name: "Encke",
+            description: "A periodic comet known for having one of the shortest orbital periods."
+        }
+    ];
+
+    res.render('comets.ejs', { comets });
+});
 
 app.listen(3000, () => {
     console.log('server started');

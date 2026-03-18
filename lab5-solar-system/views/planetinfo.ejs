@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 5: The Solar System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title><%= planet %> - Solar System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
-    <style></style>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-
 <body>
-    <%- include('partials/navbar.ejs')%>
+    <%- include('partials/navbar.ejs') %>
 
-    <div class="container-fluid m-5 row">
-        <div class="card p-4 col">
-            <h2><%=planet%></h2>
-            <%= planetInfo.description %>
+    <main class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card p-4 h-100 shadow">
+                    <h2><%= planet %></h2>
+                    <p><%= planetInfo.description %></p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card p-3 h-100 shadow text-center">
+                    <img src="<%= planetInfo.image %>" alt="<%= planet %>" class="img-fluid rounded planet-image">
+                </div>
+            </div>
         </div>
 
-        <div class="card col">
-            <img src="<%= planetInfo.image %>">
+        <div class="card p-4 shadow mt-4">
+            <h3>Planet Facts</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Distance from Sun:</strong> <%= planetInfo.distanceFromSun %></li>
+                <li class="list-group-item"><strong>Year Length:</strong> <%= planetInfo.yearLength %></li>
+                <li class="list-group-item"><strong>Length of One Earth Day:</strong> <%= planetInfo.oneEarthDay %></li>
+                <li class="list-group-item"><strong>Radius:</strong> <%= planetInfo.radius %></li>
+                <li class="list-group-item"><strong>Number of Moons:</strong> <%= planetInfo.moons %></li>
+                <li class="list-group-item">
+                    <strong>NASA Website:</strong>
+                    <a href="<%= planetInfo.websiteLink %>" target="_blank">Visit NASA page</a>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div>
-        Distance from Sun: <%=planetInfo.distanceFromSun%> <br>
-        Year Length: <%=planetInfo.yearLength%>
-    </div>
+    </main>
 
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        Created by Rigoberto Rayon 
+    </footer>
 </body>
-
 </html>
