@@ -6,7 +6,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 const PIXABAY_KEY = "20426927-497d14db9c234faf7d0df8317";
-const NASA_KEY = "DEMO_KEY"; // replace with your NASA key if needed
+const NASA_KEY = "DEMO_KEY";
 
 app.get('/', async (req, res) => {
     try {
@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
 
         res.render('home.ejs', { image: randomImageURL });
     } catch (error) {
-        console.log(error);
+        console.log("Home route error:", error);
         res.render('home.ejs', { image: "" });
     }
 });
@@ -29,13 +29,24 @@ app.get('/', async (req, res) => {
 app.get('/planetInfo', (req, res) => {
     try {
         const planet = req.query.planet;
+
+        if (!planet) {
+            return res.status(400).send("Missing planet name.");
+        }
+
         const functionName = `get${planet}`;
+
+        if (typeof planets[functionName] !== "function") {
+            return res.status(404).send("Planet not found.");
+        }
+
         const planetInfo = planets[functionName]();
 
-        res.render('planetInfo.ejs', { planet, planetInfo });
+        // IMPORTANT: make sure this matches your actual filename exactly
+        res.render('planetinfo.ejs', { planet, planetInfo });
     } catch (error) {
-        console.log(error);
-        res.send("Planet not found.");
+        console.log("Planet route error:", error);
+        res.status(500).send("Internal Server Error");
     }
 });
 
@@ -51,8 +62,8 @@ app.get('/nasapod', async (req, res) => {
             date: data.date
         });
     } catch (error) {
-        console.log(error);
-        res.send("Could not load NASA POD.");
+        console.log("NASA POD error:", error);
+        res.status(500).send("Could not load NASA POD.");
     }
 });
 
@@ -67,8 +78,8 @@ app.get('/asteroids', async (req, res) => {
 
         res.render('asteroids.ejs', { asteroids, date: today });
     } catch (error) {
-        console.log(error);
-        res.send("Could not load asteroids.");
+        console.log("Asteroids error:", error);
+        res.status(500).send("Could not load asteroids.");
     }
 });
 
@@ -91,6 +102,7 @@ app.get('/comets', (req, res) => {
     res.render('comets.ejs', { comets });
 });
 
-app.listen(3000, () => {
-    console.log('server started');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
 });
